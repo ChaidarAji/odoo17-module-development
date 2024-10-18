@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem 
+        id="menu_deposit_main" 
+        name="Deposit"
+        sequence="60"
+        web_icon="ah_customer_deposit,static/description/dollar.png"/>
+    
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ah_customer_deposit.DepositTopupButton">
+        <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.onClick()">
+            <i class="fa fa-th-list" role="img" aria-label="Deposit" title="Deposit" />
+            <span> </span>
+            <span>Topup Deposit</span>
+        </button>
+    </t>
+</templates>

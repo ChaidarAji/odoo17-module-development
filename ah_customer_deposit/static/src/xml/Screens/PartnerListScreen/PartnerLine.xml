@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//td[@class='partner-line-balance']" position="after">        
+            <td>
+                <t t-esc="env.utils.formatCurrency(props.partner.remaining_deposit_amount)"/>
+            </td>
+        </xpath>
+    </t>
+</templates>

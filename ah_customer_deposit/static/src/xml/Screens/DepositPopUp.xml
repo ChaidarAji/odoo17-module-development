@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ah_customer_deposit.DepositPaymentPopUp">
+        <div class="popup popup-confirm">
+            <div class="popup popup-text">
+                <header class="title">Deposit Payment Confirmation</header>
+                <div class="main-body">
+                    <div>
+                        <span style="text-align:center;">
+                            Remaining Deposit :
+                            <t t-esc="env.utils.formatCurrency(props.remaining_deposit)"/>
+                        </span>
+                    </div>
+                </div>
+
+                <footer class="footer">
+                    <t t-set="paymentMethod" t-value="props.paymentMethod"/>
+                    <div class="button confirm odoo-theme-button"
+                        t-on-click="() => this.trigger(deposit_payment_confirm, paymentMethod)">
+                        Confirm
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+</templates>
