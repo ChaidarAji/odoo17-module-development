@@ -61,7 +61,6 @@ patch(PaymentScreen.prototype, {
     },
 
     async addNewPaymentLine(paymentMethod) {
-        console.log('==============',paymentMethod);
         if (paymentMethod.use_payment_terminal == 'deposit'){
             if (!this.currentOrder.partner){
                 this.popup.add(ErrorPopup, {
@@ -90,4 +89,5 @@ patch(PaymentScreen.prototype, {
             super.addNewPaymentLine(paymentMethod);
         }
     }
+    
 });

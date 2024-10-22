@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-#################################################################################
-# Author      : WEHA Consultant (<www.ah-id.com>)
-# Copyright(c): 2015-Present WEHA Consultant.
-# All Rights Reserved.
-#
-# This program is copyright property of the author mentioned above.
-# You can`t redistribute it and/or modify it.
-#
-#################################################################################
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_is_zero, float_round
@@ -43,6 +34,12 @@ class PosOrder(models.Model):
                     'note': "%s: %s"%(pos_order_id.picking_type_id.warehouse_id.name, pos_order_id.name)
                 }
                 res = self.env['customer.deposit'].create_from_ui(vals)
+            if pos_order_id.payment_ids:
+                for payment in pos_order_id.payment_ids:
+                    if payment.payment_method_id.journal_id.is_deposit:
+                        deposit_payment = self.env['customer.deposit'].sudo().search([('note','=',pos_order_id.pos_reference)])
+                        if deposit_payment:
+                            deposit_payment.order_id = pos_order_id.id
         return order_id
     
     is_deposit_order = fields.Char('Is Deposit Order')

@@ -70,24 +70,26 @@ export class PaymentDeposit extends PaymentInterface {
 
     async generate_deposit_change(amount){
       var self = this; 
-      this.orm = useService('orm');
       var values = {
         customer_id: this.pos.get_order().partner.id,
         type: 'change',
-        debit: amount
+        debit: amount,
+        order_id: this.pos.get_order().id,
+        cashier_id: this.pos.get_cashier().id,
+        note: this.pos.get_order().name
       }
-      const result = await this.orm.call('customer.deposit', 'create_from_ui', [values,values]);
+      const result = await this.pos.orm.call('customer.deposit', 'create_from_ui', [values,values]);
       console.log('result',result);
-      if(result){                 
-            self.successEcr = true;
+      if(result){
+        self.successEcr = true;
+        this.pos.get_order().partner.remaining_deposit_amount = this.pos.get_order().partner.remaining_deposit_amount - amount;
       }
     }
 
     async get_remaining_deposit_amount(amount){
         var self = this; 
-        this.orm = useService('orm');
         if (this.pos.get_order().partner){
-            const result = await this.orm.call('res.partner', 'search_read', [
+            const result = await this.pos.orm.call('res.partner', 'search_read', [
                 [['id', '=', this.pos.get_order().partner.id]],
                 ['remaining_deposit_amount']
             ]);
@@ -119,8 +121,6 @@ export class PaymentDeposit extends PaymentInterface {
           return Promise.resolve();
         }          
         var result = await this.get_remaining_deposit_amount(paymentLine.amount);
-        console.log('_deposit_pay');
-        console.log(result);
         if(!result){
           this._show_error(
             _t('Cannot process transaction , balance not sufficient.')

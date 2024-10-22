@@ -15,10 +15,13 @@ class AccountPaymentRegister(models.TransientModel):
 
         if self.partner_id.remaining_deposit_amount >= self.amount:
             try:                
-                vals = {}
-                vals.update({'customer_id': self.partner_id.id})
-                vals.update({'type':'change'})                   
-                vals.update({'debit': self.amount})                                                     
+                vals = {
+                    'customer_id': self.partner_id.id,
+                    'type': 'change',
+                    'debit': self.amount,
+                    'cashier_id': self.env.user.id,
+                    'note': 'Invoice :'+self.communication
+                }
                 res = self.env['customer.deposit'].create_from_ui(vals)        
                 res.action_done()                
                 return super(AccountPaymentRegister,self)._create_payments()
