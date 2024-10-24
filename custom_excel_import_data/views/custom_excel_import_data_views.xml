@@ -1,0 +1,78 @@
+<odoo>
+	<data>
+
+
+		<record model="ir.ui.view" id="custom_excel_import_data_view_tree">
+			<field name="name">custom.excel.import.data.view.tree</field>
+			<field name="model">custom.excel.import.data</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="custom_excel_import_data_view_form" model="ir.ui.view">
+			<field name="name">custom.excel.import.data.view.form</field>
+			<field name="model">custom.excel.import.data</field>
+			<field name="arch" type="xml">
+				<form string="Import Data">
+					<header>
+						<button name="action_create_record" string="Create Records" type="object" class="oe_highlight"/>
+						<!-- <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/> -->
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="Name"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="file" filename="filename"/>
+								<field name="filename" invisible="1"/>
+								<label for="generate_header"></label>
+								<button name="generate_header" string="GENERATE HEADER DATA" type="object" class="oe_highlight"/>
+							</group>
+						</group>
+						<notebook>
+							<page name="line_ids" string="Header Data">
+								<field name="header_line_ids" readonly="1">
+									<tree>
+										<!-- <field name="import_data_id" invisible="1"/> -->
+										<field name="name"/>
+										<field name="example"/>
+										<field name="index_no"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="custom_excel_import_data_search" model="ir.ui.view">
+			<field name="name">custom.excel.import.data.search</field>
+			<field name="model">custom.excel.import.data</field>
+			<field name="arch" type="xml">
+				<search string="Import Data">
+					<field name="name"/>
+				</search>
+			</field>
+		</record>
+	
+		<record model="ir.actions.act_window" id="action_custom_excel_import_data">
+			<field name="name">Excel Data Import</field>
+			<field name="res_model">custom.excel.import.data</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="custom_excel_import_data_view_tree"/>
+			<field name="domain">[]</field>
+		</record>
+	
+		<menuitem id="menu_custom_excel_import_data"
+				  parent="base.menu_automation"
+				  action="action_custom_excel_import_data"
+				  sequence="101"/>
+	</data>
+</odoo>

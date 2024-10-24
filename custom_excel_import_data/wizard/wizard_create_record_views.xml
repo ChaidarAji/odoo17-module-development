@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wizard_create_record_form" model="ir.ui.view">
+            <field name="name">wizard.create.record.form</field>
+            <field name="model">wizard.create.record</field>
+            <field name="arch" type="xml">
+                <form string="Create Records">
+                    <group>
+                        <field name="import_data_id" readonly="1"/>
+                        <field name="model_id" required="1" 
+                        options="{'no_create': True}"
+                        />
+                        <field name="prevent_duplicate"/>
+                        <field name="prevent_duplicate_existing"/>
+                        <field name="skip_uncomplete"/>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <!-- <field name="wizard_id" invisible="1"/> -->
+                            <field name="header_data_id" 
+                            domain="[('import_data_id', '=', parent.import_data_id)]" 
+                            options="{'no_create': True}"
+                            
+                            />
+                            <field name="field_id" 
+                            domain="[('model_id', '=', parent.model_id)]" 
+                            options="{'no_create': True}"
+                            
+                            />
+                            <field name="force_create"/>
+                            <field name="use_index"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button string="Create" name="button_create_record" type="object"  class="oe_highlight" data-hotkey="y"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="x"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
