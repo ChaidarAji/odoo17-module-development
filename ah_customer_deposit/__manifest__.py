@@ -15,7 +15,7 @@
     'email': "chaidaraji@gmail.com",
     'price': 0,
     'currency': 'USD',
-    # 'images': ['static/description/main_background.png'],
+    'images': ['static/description/icon.png'],
     "data": [
         'security/ir.model.access.csv',
         'data/customer_deposit_sequence.xml',
@@ -48,5 +48,6 @@
     },
     "auto_install": False,
     "installable": True,
+    "application": True,
     'license': 'LGPL-3',
 }
