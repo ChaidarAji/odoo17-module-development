@@ -3,6 +3,7 @@
     "version" : "17.0.1.0",
     "category" : "Point of Sale",
     "depends" : ['base','sale','point_of_sale'],
+    
     "author": "AH",
     'summary': 'POS Customer Deposit',
     "description": """
@@ -16,6 +17,7 @@
     'price': 0,
     'currency': 'USD',
     'images': ['static/description/icon.png'],
+    # 'images': ['static/description/main_background.png'],
     "data": [
         'security/ir.model.access.csv',
         'data/customer_deposit_sequence.xml',
