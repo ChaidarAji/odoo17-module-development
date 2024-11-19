@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ah_pos_ship_later_line_ah_pos_ship_later_line,ah_pos_ship_later_line.ah_pos_ship_later_line,model_ah_pos_ship_later_line_ah_pos_ship_later_line,base.group_user,1,1,1,1

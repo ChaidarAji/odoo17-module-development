@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="can_pos_ship_later_line.ShipLaterLinePopup">
+        <div class="popup">
+            <div class="modal-header text-center">
+                <h4 class="modal-title title">
+                    Ship Later Lines
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="text-center">
+                        <span>
+                            <strong>Shipping Date:</strong>
+                            <input class="form-control form-control-lg w-75 mx-auto" type="date" t-model="state.shippingDate" t-ref="input" t-att-min="_today()"/>
+                        </span>
+                    </div>
+                    <br/>
+                    <div class="text-center">
+                        <span>
+                            <strong>Order Lines:</strong>
+                        </span>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Product</th>
+                                    <th class="text-center">Order Qty.</th>
+                                    <th class="text-center">Ship Later Qty.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="props.orderline" t-as="each_line" t-key="each_line.id">
+                                    <tr class="ship_later_line" t-att-data-line_id="each_line.id">
+                                        <td class="text-left" style="width: 30%;"><t t-esc="each_line.product_name" /></td>
+                                        <td class="text-center" style="width: 30%;"><t  t-esc="each_line.quantity"/></td>
+                                        <td class="text-center" style="width: 30%;"><input id="quantity" type="text" t-model.number="each_line.to_ship_line_qty"/></td>
+                                    </tr>
+                                </t>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer footer footer-flex">
+                <div class="button confirm highlight btn btn-lg btn-primary" t-on-click="confirmShipLaterQty">Confirm</div>
+                <div class="button cancel btn btn-lg btn-secondary" t-on-click="cancel">Cancel</div>
+            </div>
+        </div>
+    </t>
+
+</templates>

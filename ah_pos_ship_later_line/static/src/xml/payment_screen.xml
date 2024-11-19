@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentScreenButtons" t-inherit="point_of_sale.PaymentScreenButtons" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('payment-buttons')]/button[@t-if='pos.config.ship_later']" position="replace">
+            <button t-if="pos.config.ship_later" class="button btn btn-light py-3 text-start rounded-0 border-bottom" t-att-class="{ 'highlight text-bg-primary': currentOrder.getShippingDate() }" 
+                t-on-click="toggleShippingDatePicker">
+                <i class="fa fa-clock-o me-2" />Ship Later 
+                <span t-if="currentOrder.getShippingDate()">
+                    (<t t-esc="currentOrder.getShippingDate()" />)
+                </span>
+            </button>
+            <div class="highlight" style="background-color: #f0f0f0;" t-if="currentOrder.getShippingDate()">
+                <span>
+                    <strong>Product to ship later:</strong>
+                </span>
+                <t t-set="lines" t-value="currentOrder.orderlines"/>
+                <table>
+                    <t t-foreach="lines" t-as="line" t-key="line.id">
+                        <t t-if="line.to_ship_line_qty > 0">
+                            <tr>
+                                <td style="width: 70%;"><t t-esc="line.product.display_name"/></td>
+                                <td style="width: 30%; text-align: right;">[<t t-esc="line.to_ship_line_qty"/> <t t-esc="line.product.uom_id[1]"/>]</td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </div>
+        </xpath>
+    </t>
+</templates>
