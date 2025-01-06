@@ -49,6 +49,7 @@
                     />
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Deposit Done" invisible="deposit_amount == 0"/>
                     <label for="name" string="Folio Number" />
                     <h1>
                         <field name="name" colspan="4" readonly="1" />
@@ -69,6 +70,7 @@
                                 <field name="partner_name" required="1" />
                                 <field name="partner_address" required="1" />
                                 <field name="partner_phone" required="1" />
+                                <field name="deposit_amount" />
                                 <field
                                     name="partner_id"
                                     string="Guest Name"
@@ -260,7 +262,7 @@
                                 <field name="client_order_ref" />
                             </group>
                         </page>
-                        <page name="invoice_history" string="History">
+                        <page name="invoice_history" string="History" invisible="1">
                             <separator string="Related invoices" colspan="4" />
                             <field name="invoice_ids" colspan="4" nolabel="1" />
                         </page>

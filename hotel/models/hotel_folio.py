@@ -116,6 +116,7 @@ class HotelFolio(models.Model):
     partner_name = fields.Char(string="Guest Name")
     partner_address = fields.Char(string="Guest Address")
     partner_phone = fields.Char(string="Guest Phone")
+    deposit_amount = fields.Float(string="Deposit Amount")
 
     @api.constrains("room_line_ids")
     def _check_duplicate_folio_room_line(self):
