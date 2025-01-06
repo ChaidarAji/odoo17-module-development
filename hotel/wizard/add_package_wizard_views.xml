@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_add_package_wizard_form" model="ir.ui.view">
+        <field name="name">add.package.wizard.form</field>
+        <field name="model">add.package.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="folio_id" readonly="1" invisible="1"/>
+                    <field name="package_id" />
+                    <field name="checkin_date" />
+                    <field name="checkout_date" />
+                </group>
+                <notebook>
+                    <page name="room_line_ids" string="Room Lines">
+                        <field name="room_line_ids">
+                            <tree editable="bottom">
+                                <field name="room_type_id" />
+                                <field name="quantity" readonly="1" force_save="1"/>
+                                <field name="room_ids" widget="many2many_tags" domain="[('room_categ_id','=',room_type_id), ('status','=','available')]" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="service_line_ids" string="Services">
+                        <field name="service_line_ids" >
+                            <tree editable="bottom">
+                                <field name="service_id" />
+                                <field name="description" readonly="1" />
+                                <field name="price" readonly="1" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="action_add_package" string="Add Package" type="object" class="btn-primary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
