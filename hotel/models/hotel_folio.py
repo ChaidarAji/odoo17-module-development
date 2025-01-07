@@ -172,7 +172,7 @@ class HotelFolio(models.Model):
             }
             folio_room_line_obj.create(vals)
 
-    @api.onchange("partner_name", "partner_phone")
+    @api.onchange("partner_name", "partner_phone", "partner_address")
     def set_partner(self):
         if self.partner_name and self.partner_phone:
             partner = self.env["res.partner"].search(['|', ("name", "=", self.partner_name), ("phone", "=", self.partner_phone)], limit=1)
@@ -180,9 +180,12 @@ class HotelFolio(models.Model):
                 partner = self.env["res.partner"].create({
                     "name": self.partner_name.strip().lower(),
                     "phone": self.partner_phone.strip().lower(),
-                    "street": self.partner_address.strip().lower(),
+                    "street": self.partner_address.strip().lower() if self.partner_address else '',
                 })
             self.partner_id = partner
+
+            if self.partner_address:
+                self.partner_id.street = self.partner_address.strip().lower()
 
     @api.model
     def create(self, vals):
