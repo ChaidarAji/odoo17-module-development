@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_folio_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><t t-esc="o.name"/></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <span>Guest Name :</span>
+                                </td>
+                                <td>
+                                    <span>Guest Phone :</span>
+                                </td>
+                                <td>
+                                    <span>Deposit Amount :</span>
+                                </td>
+                                <td>
+                                    <span>Address :</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="o.partner_name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="o.partner_phone"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="'{:,.2f}'.format(o.deposit_amount)"/>
+                                </td>
+                                <td>
+                                    <span t-esc="o.partner_address"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Room Details</h3>
+                        <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Room No.</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.room_line_ids" t-as="room_line">
+                                <tr>
+                                    <td><t t-esc="context_timestamp(room_line.checkin_date).strftime('%d-%m-%Y %H:%M')"/></td>
+                                    <td><t t-esc="context_timestamp(room_line.checkout_date).strftime('%d-%m-%Y %H:%M')"/></td>
+                                    <td><t t-esc="room_line.product_id.name"/></td>
+                                    <td><t t-esc="room_line.name"/></td>
+                                    <td><t t-esc="room_line.product_uom_qty"/></td>
+                                    <td><t t-esc="room_line.price_unit"/></td>
+                                    <td><t t-esc="room_line.price_subtotal"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"></div>
+                    <h3>Service Details</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.service_line_ids" t-as="service_line">
+                                <tr>
+                                    <td><t t-esc="service_line.product_id.name"/></td>
+                                    <td><t t-esc="service_line.name"/></td>
+                                    <td><t t-esc="service_line.product_uom_qty"/></td>
+                                    <td><t t-esc="'{:,.2f}'.format(service_line.price_unit)"/></td>
+                                    <td><t t-esc="'{:,.2f}'.format(service_line.price_subtotal)"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="oe_structure"></div>
+                    <div class="col-12">
+                        <div class="col-6" style="float: right;">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>Untaxed Amount</td>
+                                    <td class="text-end"><span><t t-esc="'{:,.2f}'.format(o.amount_untaxed)"/></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax Amount</td>
+                                    <td class="text-end"><span><t t-esc="'{:,.2f}'.format(o.amount_tax)"/></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Amount</td>
+                                    <td class="text-end"><span><t t-esc="'{:,.2f}'.format(o.amount_total)"/></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </t>
+        </template>
+
+        <template id="print_report_folio">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="hotel.report_folio_document"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
