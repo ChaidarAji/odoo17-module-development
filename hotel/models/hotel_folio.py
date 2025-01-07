@@ -118,6 +118,14 @@ class HotelFolio(models.Model):
     partner_phone = fields.Char(string="Guest Phone")
     deposit_amount = fields.Float(string="Deposit Amount")
 
+    def action_print_folio(self):
+        return {
+            'type': 'ir.actions.report',
+            'report_name': 'hotel.print_report_folio',
+            'report_type': 'qweb-pdf',
+            'context': {'folio_id': self.id}
+        }
+
     @api.constrains("room_line_ids")
     def _check_duplicate_folio_room_line(self):
         """

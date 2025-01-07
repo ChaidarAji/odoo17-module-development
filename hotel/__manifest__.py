@@ -18,6 +18,7 @@
         "data/hotel_sequence.xml",
         "report/report_view.xml",
         "report/hotel_folio_report_template.xml",
+        "report/print_folio_template.xml",
         "views/hotel_folio.xml",
         "views/hotel_room.xml",
         "views/hotel_room_amenities.xml",

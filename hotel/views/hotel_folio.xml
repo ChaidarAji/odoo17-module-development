@@ -41,6 +41,7 @@
                         type="object"
                         class="oe_highlight"
                     />
+                    <button name="action_print_folio" string="Print" type="object" class="btn-primary" icon="fa-print"/>
                     <field
                         name="state"
                         select="2"
